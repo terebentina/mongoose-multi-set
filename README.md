@@ -11,7 +11,7 @@ this is the job of the calling code.
 
 ## Usage
 
-model.multiSet({object}, [allowed fields]);
+model.multiSet(`{object}`, `[allowed fields]`);
 
 Where `{object}` is an object like {field1: value1, field2: value2,...} with fields to set and their values.
 `[allowed fields]` is an array of fields from the `{object}` that are allowed to be set in the model.
@@ -25,10 +25,15 @@ var UserSchema = new Schema({
 });
 UserSchema.plugin(require('mongoose-multi-set'));
 var user = mongoose.model('User', UserSchema);
-user.multiSet(req.query, ['username', 'age']);  // say req.query is {username: 'Foo', name: 'Bar', age: 25}
+// say req.query is {username: 'Foo', name: 'Bar', age: 25}
+user.multiSet(req.query, ['username', 'age']);
 user.save();
 ```
-The User model will now have `username` and `age` properties set from req.query.
+The User model will now have the `username` and `age` properties set from req.query.
+
+ - The plugin doesn't let you update the `id` or `_id` properties of the model. If you really want to update the id of the model, you can do so manually ;)
+ - The `allowed fields` parameter is required to make sure only the desired fields are updated
+
 
 ## License
 
