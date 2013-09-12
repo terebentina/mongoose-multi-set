@@ -37,10 +37,14 @@ var UserSchema = new Schema({
     age: Number
 });
 UserSchema.plugin(require('mongoose-multi-set'));
-var user = mongoose.model('User', UserSchema);
-// say req.query is {username: 'Foo', name: 'Bar', age: 25}
-user.multiSet(req.query, ['username', 'age']);
-user.save();
+var User = mongoose.model('User', UserSchema);
+User.findById('1234', function(err, user) {
+	// say req.query is {username: 'Foo', name: 'Bar', age: 25}
+	user.multiSet(req.query, ['username', 'age']);
+	user.save(function(err) {
+		handleValidationErrors(err);
+	});
+});
 ```
 The User model will now have the `username` and `age` properties set from req.query.
 
