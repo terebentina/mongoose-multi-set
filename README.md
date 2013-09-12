@@ -1,9 +1,21 @@
 Mongoose Multi Set Plugin
 ==========================
 
-Simple plugin for [Mongoose](https://github.com/LearnBoost/mongoose) which adds the `multiSet()` method to models. Useful when you want to set more values in the model at once.
+Simple plugin for [Mongoose](https://github.com/LearnBoost/mongoose) that allows you to do:
+```javascript
+	user.multiSet(req.query, ['username', 'age', 'name']);
+```
+instead of
+```javascript
+	user.username = req.query.username;
+	user.age = req.query.age;
+	user.name = req.query.name;
+```
+
+Useful when you want to set more values in the model at once.
 The plugin doesn't interfere with the validation rules in the model, unlike the Model.update() function or the Schema.findByIdAndUpdate(). This plugin doesn't save the model either,
 this is the job of the calling code.
+
 
 ## Installation
 
@@ -14,6 +26,7 @@ this is the job of the calling code.
 model.multiSet(`{object}`, `[allowed fields]`);
 
 Where `{object}` is an object like {field1: value1, field2: value2,...} with fields to set and their values.
+
 `[allowed fields]` is an array of fields from the `{object}` that are allowed to be set in the model.
 You'd use this plugin to update the model from, say, req.query, when you have proper validation in place.
 
@@ -32,7 +45,7 @@ user.save();
 The User model will now have the `username` and `age` properties set from req.query.
 
  - The plugin doesn't let you update the `id` or `_id` properties of the model. If you really want to update the id of the model, you can do so manually ;)
- - The `allowed fields` parameter is required to make sure only the desired fields are updated
+ - The `[allowed fields]` parameter is required to make sure only the desired fields are updated.
 
 
 ## License
