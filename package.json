@@ -18,8 +18,6 @@
     "type": "git",
     "url": "git://github.com/terebentina/mongoose-multi-set.git"
   },
-  "dependencies": {
-  },
   "license": "MIT",
   "engine": {
     "node": ">= 0.6"
@@ -28,3 +26,4 @@
   "bugs": {
     "url": "https://github.com/terebentina/mongoose-multi-set/issues"
   }
+}
