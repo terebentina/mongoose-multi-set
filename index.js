@@ -4,11 +4,13 @@
  * MIT Licensed
  */
 
-//var BinaryParser = require('bson').BinaryParser;
-
 function multiSetPlugin(schema, options) {
 	schema.methods.multiSet = function(obj, allowedFields) {
 		if (!allowedFields) {
+			return;
+		}
+
+		if (Object.prototype.toString.call(allowedFields) !== '[object Array]') {
 			return;
 		}
 		var i = allowedFields.indexOf('id');
@@ -19,11 +21,12 @@ function multiSetPlugin(schema, options) {
 		if (i !== -1) {
 			allowedFields.splice(i, 1);
 		}
-		for (i in allowedFields) {
-			if (allowedFields.hasProperty(i) && typeof obj[i] !== 'undefined') {
-				this[i] = obj[i];
+		var self = this;
+		allowedFields.forEach(function(field) {
+			if (typeof obj[field] !== 'undefined') {
+				self[field] = obj[field];
 			}
-		}
+		});
 	}
 }
 

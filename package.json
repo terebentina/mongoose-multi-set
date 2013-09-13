@@ -1,7 +1,7 @@
 {
   "name": "mongoose-multi-set",
   "description": "Mongoose plugin that allows you to update a model with multiple values at once (while still keeping the schema validation)",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": {
     "name": "Dan Caragea",
     "email": "dancaragea@gmail.com"
