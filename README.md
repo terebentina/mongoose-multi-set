@@ -23,11 +23,15 @@ this is the job of the calling code.
 
 ## Usage
 
-model.multiSet(`{object}`, `[allowed fields]`);
+model.multiSet(`{object}`, `[allowed fields]`, `ignoreMissing`);
 
 Where `{object}` is an object like {field1: value1, field2: value2,...} with fields to set and their values.
 
 `[allowed fields]` is an array of fields from the `{object}` that are allowed to be set in the model.
+
+`ignoreMissing` an optional boolean to either skip over undefined values or force set the model fields to undefined. Defaults to true (skip/do nothing for undefined values).
+This could be useful when you're modifying an existing model - setting some fields to undefined or leaving them unaltered.
+
 You'd use this plugin to update the model from, say, req.query, when you have proper validation in place.
 
 ```javascript

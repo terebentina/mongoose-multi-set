@@ -5,9 +5,14 @@
  */
 
 function multiSetPlugin(schema, options) {
-	schema.methods.multiSet = function(obj, allowedFields) {
+	schema.methods.multiSet = function(obj, allowedFields, ignoreMissing) {
 		if (!allowedFields) {
 			return;
+		}
+		if (typeof ignoreMissing == 'undefined') {
+			ignoreMissing = true;
+		} else {
+			ignoreMissing = !!ignoreMissing;
 		}
 
 		if (Object.prototype.toString.call(allowedFields) !== '[object Array]') {
@@ -23,7 +28,7 @@ function multiSetPlugin(schema, options) {
 		}
 		var self = this;
 		allowedFields.forEach(function(field) {
-			if (typeof obj[field] !== 'undefined') {
+			if ((typeof obj[field] !== 'undefined' && ignoreMissing) || !ignoreMissing) {
 				self[field] = obj[field];
 			}
 		});
